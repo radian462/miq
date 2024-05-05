@@ -243,7 +243,8 @@ app = Flask(__name__)
 @app.route("/", methods=["GET"])
 def main():
     type = request.args.get("type")
-    name = f'- {request.args.get("name") or "SAMPLE"}'
+    name = request.args.get("name") or "SAMPLE"
+    name = f"- {name}"
     id = request.args.get("id") or "0000000000000000000",
     content = request.args.get("content") or "Make it a Quote",
     icon = request.args.get("icon") or "https://cdn.discordapp.com/embed/avatars/0.png"
