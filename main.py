@@ -250,32 +250,32 @@ def main():
 
     if type == "color":
         return send_file(
-            colorMake(name[0], id[0], content, icon),
+            colorMake(name, id[0], content, icon),
             mimetype="image/png"
         )
     elif type == "reverse":
         return send_file(
-            reverseMake(name[0], id[0], content, icon),
+            reverseMake(name, id[0], content, icon),
             mimetype="image/png"
         )
     elif type == "reverseColor":
         return send_file(
-            reverseColorMake(name[0], id[0], content, icon),
+            reverseColorMake(name, id[0], content, icon),
             mimetype="image/png"
         )
     elif type == "white":
         return send_file(
-            whiteMake(name[0], id[0], content, icon),
+            whiteMake(name, id[0], content, icon),
             mimetype="image/png"
         )
     elif type == "reverseWhite":
         return send_file(
-            reverseWhiteMake(name[0], id[0], content, icon),
+            reverseWhiteMake(name, id[0], content, icon),
             mimetype="image/png"
         )
     else:
         return send_file(
-            make(name[0], id[0], content, icon),
+            make(name, id[0], content, icon),
             mimetype="image/png"
         )
 
