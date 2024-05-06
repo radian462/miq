@@ -91,13 +91,13 @@ def make(name, id, content, icon):
 
     tx = ImageDraw.Draw(img)
 
-    tsize_t = drawText(img, (890, 270), content, size=55, color=(255, 255, 255, 255), split_len=20)
+    tsize_t = drawText(img, (890, 300), content, size=55, color=(255, 255, 255, 255), split_len=20)
 
-    name_y = tsize_t[2] + 40
+    name_y = tsize_t[2] + 10
     tsize_name = drawText(img, (890, name_y), f"- {name}", size=28, color=(255, 255, 255, 255), split_len=25, disable_dot_wrap=True)
 
     id_y = name_y + tsize_name[1] + 4
-    drawText(img, (890, id_y), f"@{id}", size=18, color=(180, 180, 180, 255), split_len=45, disable_dot_wrap=True)
+    drawText(img, (890, id_y), f"@{id}", size=18, color=(128,128,128, 255), split_len=45, disable_dot_wrap=True)
 
     tx.text((1117, 694), BRAND, font=MPLUS_FONT, fill=(120, 120, 120, 255))
 
@@ -119,11 +119,11 @@ def colorMake(name, id, content, icon):
 
     tsize_t = drawText(img, (890, 270), content, size=55, color=(255, 255, 255, 255), split_len=20)
 
-    name_y = tsize_t[2] + 40
+    name_y = tsize_t[2] + 10
     tsize_name = drawText(img, (890, name_y), f"- {name}", size=28, color=(255, 255, 255, 255), split_len=25, disable_dot_wrap=True)
 
     id_y = name_y + tsize_name[1] + 4
-    drawText(img, (890, id_y), f"@{id}", size=18, color=(180, 180, 180, 255), split_len=45, disable_dot_wrap=True)
+    drawText(img, (890, id_y), f"@{id}", size=18, color=(128,128,128, 255), split_len=45, disable_dot_wrap=True)
 
     tx.text((1117, 694), BRAND,font=MPLUS_FONT, fill=(120, 120, 120, 255))
 
@@ -147,11 +147,11 @@ def reverseMake(name, id, content, icon):
 
     tsize_t = drawText(img, (390, 270), content, size=55, color=(255, 255, 255, 255), split_len=20)
 
-    name_y = tsize_t[2] + 40
+    name_y = tsize_t[2] + 10
     tsize_name = drawText(img, (390, name_y), f"- {name}", size=28, color=(255, 255, 255, 255), split_len=25, disable_dot_wrap=True)
 
     id_y = name_y + tsize_name[1] + 4
-    drawText(img, (390, id_y), id, size=18, color=(180, 180, 180, 255), split_len=45, disable_dot_wrap=True)
+    drawText(img, (390, id_y), id, size=18, color=(128,128,128, 255), split_len=45, disable_dot_wrap=True)
 
     tx.text((6, 694), BRAND, font=MPLUS_FONT, fill=(120, 120, 120, 255))
 
@@ -173,11 +173,11 @@ def reverseColorMake(name, id, content, icon):
 
     tsize_t = drawText(img, (390, 270), content, size=55, color=(255, 255, 255, 255), split_len=20)
 
-    name_y = tsize_t[2] + 40
+    name_y = tsize_t[2] + 10
     tsize_name = drawText(img, (390, name_y), f"- {name}", size=28, color=(255, 255, 255, 255), split_len=25, disable_dot_wrap=True)
 
     id_y = name_y + tsize_name[1] + 4
-    drawText(img, (390, id_y), id, size=18, color=(180, 180, 180, 255), split_len=45, disable_dot_wrap=True)
+    drawText(img, (390, id_y), id, size=18, color=(128,128,128, 255), split_len=45, disable_dot_wrap=True)
 
     tx.text((6, 694), BRAND, font=MPLUS_FONT, fill=(120, 120, 120, 255))
 
@@ -199,7 +199,7 @@ def whiteMake(name, id, content, icon):
 
     tsize_t = drawText(img, (890, 270), content, size=55, color=(0, 0, 0, 0), split_len=20)
 
-    name_y = tsize_t[2] + 40
+    name_y = tsize_t[2] + 10
     tsize_name = drawText(img, (890, name_y), f"-{name}", size=28, color=(0, 0, 0, 0), split_len=25, disable_dot_wrap=True)
 
     id_y = name_y + tsize_name[1] + 4
@@ -225,7 +225,7 @@ def reverseWhiteMake(name, id, content, icon):
 
     tsize_t = drawText(img, (390, 270), content, size=55, color=(0, 0, 0, 0), split_len=20)
 
-    name_y = tsize_t[2] + 40
+    name_y = tsize_t[2] + 10
     tsize_name = drawText(img, (390, name_y), f"- {name}", size=28, color=(0, 0, 0, 0), split_len=25, disable_dot_wrap=True)
 
     id_y = name_y + tsize_name[1] + 4
