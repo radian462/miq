@@ -381,7 +381,7 @@ def miq(
     elif type == "reverseWhite":
         return reverseWhiteMake(name, id[0], content, icon, brand)
     else:
-        return (make(name, id[0], content, icon),)
+        return make(name, id[0], content, icon, brand)
 
 
 if __name__ == "__main__":
