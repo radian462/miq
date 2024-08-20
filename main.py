@@ -25,7 +25,7 @@ def drawText(
     size=16,
     color=(0, 0, 0, 255),
     split_len=None,
-    padding=4,
+    padding=20,
     disable_dot_wrap=False,
 ):
     ImageDraw.Draw(im)
@@ -68,7 +68,8 @@ def drawText(
     draw_lines = []
 
     for line in lines:
-        tsize = fontObj.getsize(line)
+        bbox = fontObj.getbbox(line)
+        tsize = (bbox[2] - bbox[0], bbox[3] - bbox[1])
 
         ofs_y = ofs[1] + dy
         t_height = tsize[1]
@@ -105,7 +106,7 @@ def make(name, id, content, icon, brand):
         img, (890, 300), content, size=55, color=(255, 255, 255, 255), split_len=20
     )
 
-    name_y = tsize_t[2] + 10
+    name_y = tsize_t[2] + 30
     tsize_name = drawText(
         img,
         (890, name_y),
@@ -150,7 +151,7 @@ def colorMake(name, id, content, icon, brand):
         img, (890, 270), content, size=55, color=(255, 255, 255, 255), split_len=20
     )
 
-    name_y = tsize_t[2] + 10
+    name_y = tsize_t[2] + 30
     tsize_name = drawText(
         img,
         (890, name_y),
@@ -197,7 +198,7 @@ def reverseMake(name, id, content, icon, brand):
         img, (390, 270), content, size=55, color=(255, 255, 255, 255), split_len=20
     )
 
-    name_y = tsize_t[2] + 10
+    name_y = tsize_t[2] + 30
     tsize_name = drawText(
         img,
         (390, name_y),
@@ -242,7 +243,7 @@ def reverseColorMake(name, id, content, icon, brand):
         img, (390, 270), content, size=55, color=(255, 255, 255, 255), split_len=20
     )
 
-    name_y = tsize_t[2] + 10
+    name_y = tsize_t[2] + 30
     tsize_name = drawText(
         img,
         (390, name_y),
@@ -287,7 +288,7 @@ def whiteMake(name, id, content, icon, brand):
         img, (890, 270), content, size=55, color=(0, 0, 0, 0), split_len=20
     )
 
-    name_y = tsize_t[2] + 10
+    name_y = tsize_t[2] + 30
     tsize_name = drawText(
         img,
         (890, name_y),
@@ -332,7 +333,7 @@ def reverseWhiteMake(name, id, content, icon, brand):
         img, (390, 270), content, size=55, color=(0, 0, 0, 0), split_len=20
     )
 
-    name_y = tsize_t[2] + 10
+    name_y = tsize_t[2] + 30
     tsize_name = drawText(
         img,
         (390, name_y),
@@ -369,20 +370,24 @@ def miq(
     icon="https://cdn.discordapp.com/embed/avatars/0.png",
     brand="",
     type=None,
+    file_name="miq.jpeg"
 ):
     if type == "color":
-        return colorMake(name, id[0], content, icon, brand)
+        file = colorMake(name, id, content, icon, brand)
     elif type == "reverse":
-        return reverseMake(name, id[0], content, icon, brand)
+        file = reverseMake(name, id, content, icon, brand)
     elif type == "reverseColor":
-        return reverseColorMake(name, id[0], content, icon, brand)
+        file = reverseColorMake(name, id, content, icon, brand)
     elif type == "white":
-        return whiteMake(name, id[0], content, icon, brand)
+        file = whiteMake(name, id, content, icon, brand)
     elif type == "reverseWhite":
-        return reverseWhiteMake(name, id[0], content, icon, brand)
+        file = reverseWhiteMake(name, id, content, icon, brand)
     else:
-        return make(name, id[0], content, icon, brand)
+        file = make(name, id, content, icon, brand)
+
+    with open(file_name, 'wb') as f:
+        f.write(file.getbuffer())
 
 
 if __name__ == "__main__":
-    miq()
+    miq(content="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
