@@ -1,2 +1,2 @@
-recursive-include fonts *
-recursive-include images *
+recursive-include miq/fonts *
+recursive-include miq/images *
