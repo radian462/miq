@@ -1,6 +1,6 @@
 # Make it a Quote
 ## 使い方
-- `pip install git+https://github.com/radian462/miq.git `を実行
+- `pip install git+https://github.com/radian462/miq.git`を実行
 - from miq import miqを書く
 
 ## 関数
@@ -17,3 +17,5 @@
     - `white` 色反転
     - `reverseWhite` 色反転・アイコンの位置反転    
 - file_name(str): ファイル名
+
+# ク
