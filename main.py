@@ -1,6 +1,5 @@
 from PIL import Image, ImageDraw, ImageFont, ImageEnhance
 from pilmoji import Pilmoji
-from flask import Flask, request, send_file
 import requests
 import warnings
 import io
@@ -16,9 +15,19 @@ BASE_RV_W_IMAGE = Image.open("images/base-gd-w-rv.png")
 
 BASE_IMAGE = Image.open("images/base.png")
 MPLUS_FONT = ImageFont.truetype("fonts/MPLUSRounded1c-Regular.ttf", size=16)
-BRAND = "ほうむずの彼女#4743"
 
-def drawText(im, ofs, string, font="fonts/MPLUSRounded1c-Regular.ttf", size=16, color=(0, 0, 0, 255), split_len=None, padding=4, disable_dot_wrap=False):
+
+def drawText(
+    im,
+    ofs,
+    string,
+    font="fonts/MPLUSRounded1c-Regular.ttf",
+    size=16,
+    color=(0, 0, 0, 255),
+    split_len=None,
+    padding=4,
+    disable_dot_wrap=False,
+):
     ImageDraw.Draw(im)
     fontObj = ImageFont.truetype(font, size=size)
 
@@ -64,12 +73,12 @@ def drawText(im, ofs, string, font="fonts/MPLUSRounded1c-Regular.ttf", size=16, 
         ofs_y = ofs[1] + dy
         t_height = tsize[1]
 
-        x = int(ofs[0] - (tsize[0]/2))
+        x = int(ofs[0] - (tsize[0] / 2))
         draw_lines.append((x, ofs_y, line))
         ofs_y += t_height + padding
         dy += t_height + padding
 
-    adj_y = -30 * (len(draw_lines)-1)
+    adj_y = -30 * (len(draw_lines) - 1)
     for dl in draw_lines:
         with Pilmoji(im) as p:
             p.text((dl[0], (adj_y + dl[1])), dl[2], font=fontObj, fill=color)
@@ -78,7 +87,8 @@ def drawText(im, ofs, string, font="fonts/MPLUSRounded1c-Regular.ttf", size=16, 
 
     return (0, dy, real_y)
 
-def make(name, id, content, icon):
+
+def make(name, id, content, icon, brand):
     img = BASE_IMAGE.copy()
 
     icon = Image.open(io.BytesIO(requests.get(icon).content))
@@ -91,22 +101,41 @@ def make(name, id, content, icon):
 
     tx = ImageDraw.Draw(img)
 
-    tsize_t = drawText(img, (890, 300), content, size=55, color=(255, 255, 255, 255), split_len=20)
+    tsize_t = drawText(
+        img, (890, 300), content, size=55, color=(255, 255, 255, 255), split_len=20
+    )
 
     name_y = tsize_t[2] + 10
-    tsize_name = drawText(img, (890, name_y), f"- {name}", size=28, color=(255, 255, 255, 255), split_len=25, disable_dot_wrap=True)
+    tsize_name = drawText(
+        img,
+        (890, name_y),
+        f"- {name}",
+        size=28,
+        color=(255, 255, 255, 255),
+        split_len=25,
+        disable_dot_wrap=True,
+    )
 
     id_y = name_y + tsize_name[1] + 4
-    drawText(img, (890, id_y), f"@{id}", size=18, color=(128,128,128, 255), split_len=45, disable_dot_wrap=True)
+    drawText(
+        img,
+        (890, id_y),
+        f"@{id}",
+        size=18,
+        color=(128, 128, 128, 255),
+        split_len=45,
+        disable_dot_wrap=True,
+    )
 
-    tx.text((1117, 694), BRAND, font=MPLUS_FONT, fill=(120, 120, 120, 255))
+    tx.text((1117, 694), brand, font=MPLUS_FONT, fill=(120, 120, 120, 255))
 
     file = io.BytesIO()
     img.save(file, format="PNG", quality=95)
     file.seek(0)
     return file
 
-def colorMake(name, id, content, icon):
+
+def colorMake(name, id, content, icon, brand):
     img = BASE_IMAGE.copy()
 
     icon = Image.open(io.BytesIO(requests.get(icon).content))
@@ -117,22 +146,41 @@ def colorMake(name, id, content, icon):
 
     tx = ImageDraw.Draw(img)
 
-    tsize_t = drawText(img, (890, 270), content, size=55, color=(255, 255, 255, 255), split_len=20)
+    tsize_t = drawText(
+        img, (890, 270), content, size=55, color=(255, 255, 255, 255), split_len=20
+    )
 
     name_y = tsize_t[2] + 10
-    tsize_name = drawText(img, (890, name_y), f"- {name}", size=28, color=(255, 255, 255, 255), split_len=25, disable_dot_wrap=True)
+    tsize_name = drawText(
+        img,
+        (890, name_y),
+        f"- {name}",
+        size=28,
+        color=(255, 255, 255, 255),
+        split_len=25,
+        disable_dot_wrap=True,
+    )
 
     id_y = name_y + tsize_name[1] + 4
-    drawText(img, (890, id_y), f"@{id}", size=18, color=(128,128,128, 255), split_len=45, disable_dot_wrap=True)
+    drawText(
+        img,
+        (890, id_y),
+        f"@{id}",
+        size=18,
+        color=(128, 128, 128, 255),
+        split_len=45,
+        disable_dot_wrap=True,
+    )
 
-    tx.text((1117, 694), BRAND,font=MPLUS_FONT, fill=(120, 120, 120, 255))
+    tx.text((1117, 694), brand, font=MPLUS_FONT, fill=(120, 120, 120, 255))
 
     file = io.BytesIO()
     img.save(file, format="PNG", quality=95)
     file.seek(0)
     return file
 
-def reverseMake(name, id, content, icon):
+
+def reverseMake(name, id, content, icon, brand):
     img = BASE_IMAGE.copy()
 
     icon = Image.open(io.BytesIO(requests.get(icon).content))
@@ -145,22 +193,41 @@ def reverseMake(name, id, content, icon):
 
     tx = ImageDraw.Draw(img)
 
-    tsize_t = drawText(img, (390, 270), content, size=55, color=(255, 255, 255, 255), split_len=20)
+    tsize_t = drawText(
+        img, (390, 270), content, size=55, color=(255, 255, 255, 255), split_len=20
+    )
 
     name_y = tsize_t[2] + 10
-    tsize_name = drawText(img, (390, name_y), f"- {name}", size=28, color=(255, 255, 255, 255), split_len=25, disable_dot_wrap=True)
+    tsize_name = drawText(
+        img,
+        (390, name_y),
+        f"- {name}",
+        size=28,
+        color=(255, 255, 255, 255),
+        split_len=25,
+        disable_dot_wrap=True,
+    )
 
     id_y = name_y + tsize_name[1] + 4
-    drawText(img, (390, id_y), id, size=18, color=(128,128,128, 255), split_len=45, disable_dot_wrap=True)
+    drawText(
+        img,
+        (390, id_y),
+        id,
+        size=18,
+        color=(128, 128, 128, 255),
+        split_len=45,
+        disable_dot_wrap=True,
+    )
 
-    tx.text((6, 694), BRAND, font=MPLUS_FONT, fill=(120, 120, 120, 255))
+    tx.text((6, 694), brand, font=MPLUS_FONT, fill=(120, 120, 120, 255))
 
     file = io.BytesIO()
     img.save(file, format="PNG", quality=95)
     file.seek(0)
     return file
 
-def reverseColorMake(name, id, content, icon):
+
+def reverseColorMake(name, id, content, icon, brand):
     img = BASE_IMAGE.copy()
 
     icon = Image.open(io.BytesIO(requests.get(icon).content))
@@ -171,22 +238,41 @@ def reverseColorMake(name, id, content, icon):
 
     tx = ImageDraw.Draw(img)
 
-    tsize_t = drawText(img, (390, 270), content, size=55, color=(255, 255, 255, 255), split_len=20)
+    tsize_t = drawText(
+        img, (390, 270), content, size=55, color=(255, 255, 255, 255), split_len=20
+    )
 
     name_y = tsize_t[2] + 10
-    tsize_name = drawText(img, (390, name_y), f"- {name}", size=28, color=(255, 255, 255, 255), split_len=25, disable_dot_wrap=True)
+    tsize_name = drawText(
+        img,
+        (390, name_y),
+        f"- {name}",
+        size=28,
+        color=(255, 255, 255, 255),
+        split_len=25,
+        disable_dot_wrap=True,
+    )
 
     id_y = name_y + tsize_name[1] + 4
-    drawText(img, (390, id_y), id, size=18, color=(128,128,128, 255), split_len=45, disable_dot_wrap=True)
+    drawText(
+        img,
+        (390, id_y),
+        id,
+        size=18,
+        color=(128, 128, 128, 255),
+        split_len=45,
+        disable_dot_wrap=True,
+    )
 
-    tx.text((6, 694), BRAND, font=MPLUS_FONT, fill=(120, 120, 120, 255))
+    tx.text((6, 694), brand, font=MPLUS_FONT, fill=(120, 120, 120, 255))
 
     file = io.BytesIO()
     img.save(file, format="PNG", quality=95)
     file.seek(0)
     return file
 
-def whiteMake(name, id, content, icon):
+
+def whiteMake(name, id, content, icon, brand):
     img = BASE_IMAGE.copy()
 
     icon = Image.open(io.BytesIO(requests.get(icon).content)).convert("RGBA")
@@ -194,25 +280,44 @@ def whiteMake(name, id, content, icon):
 
     img.paste(icon, (0, 0), icon)
     img.paste(BASE_GD_W_IMAGE, (0, 0), BASE_GD_W_IMAGE)
-   
+
     tx = ImageDraw.Draw(img)
 
-    tsize_t = drawText(img, (890, 270), content, size=55, color=(0, 0, 0, 0), split_len=20)
+    tsize_t = drawText(
+        img, (890, 270), content, size=55, color=(0, 0, 0, 0), split_len=20
+    )
 
     name_y = tsize_t[2] + 10
-    tsize_name = drawText(img, (890, name_y), f"-{name}", size=28, color=(0, 0, 0, 0), split_len=25, disable_dot_wrap=True)
+    tsize_name = drawText(
+        img,
+        (890, name_y),
+        f"-{name}",
+        size=28,
+        color=(0, 0, 0, 0),
+        split_len=25,
+        disable_dot_wrap=True,
+    )
 
     id_y = name_y + tsize_name[1] + 4
-    drawText(img, (890, id_y), f"@{id}", size=18, color=(90, 90, 90, 255), split_len=45, disable_dot_wrap=True)
+    drawText(
+        img,
+        (890, id_y),
+        f"@{id}",
+        size=18,
+        color=(90, 90, 90, 255),
+        split_len=45,
+        disable_dot_wrap=True,
+    )
 
-    tx.text((1117, 694), BRAND, font=MPLUS_FONT, fill=(110, 110, 110, 215))
+    tx.text((1117, 694), brand, font=MPLUS_FONT, fill=(110, 110, 110, 215))
 
     file = io.BytesIO()
     img.save(file, format="PNG", quality=95)
     file.seek(0)
     return file
 
-def reverseWhiteMake(name, id, content, icon):
+
+def reverseWhiteMake(name, id, content, icon, brand):
     img = BASE_IMAGE.copy()
 
     icon = Image.open(io.BytesIO(requests.get(icon).content)).convert("RGBA")
@@ -223,61 +328,61 @@ def reverseWhiteMake(name, id, content, icon):
 
     tx = ImageDraw.Draw(img)
 
-    tsize_t = drawText(img, (390, 270), content, size=55, color=(0, 0, 0, 0), split_len=20)
+    tsize_t = drawText(
+        img, (390, 270), content, size=55, color=(0, 0, 0, 0), split_len=20
+    )
 
     name_y = tsize_t[2] + 10
-    tsize_name = drawText(img, (390, name_y), f"- {name}", size=28, color=(0, 0, 0, 0), split_len=25, disable_dot_wrap=True)
+    tsize_name = drawText(
+        img,
+        (390, name_y),
+        f"- {name}",
+        size=28,
+        color=(0, 0, 0, 0),
+        split_len=25,
+        disable_dot_wrap=True,
+    )
 
     id_y = name_y + tsize_name[1] + 4
-    drawText(img, (390, id_y), id, size=18, color=(90, 90, 90, 255), split_len=45, disable_dot_wrap=True)
+    drawText(
+        img,
+        (390, id_y),
+        id,
+        size=18,
+        color=(90, 90, 90, 255),
+        split_len=45,
+        disable_dot_wrap=True,
+    )
 
-    tx.text((6, 694), BRAND, font=MPLUS_FONT, fill=(110, 110, 110, 255))
+    tx.text((6, 694), brand, font=MPLUS_FONT, fill=(110, 110, 110, 255))
 
     file = io.BytesIO()
     img.save(file, format="PNG", quality=95)
     file.seek(0)
     return file
 
-app = Flask(__name__)
 
-@app.route("/", methods=["GET"])
-def main():
-    type = request.args.get("type")
-    name = request.args.get("name") or "SAMPLE"
-    id = request.args.get("id") or "0000000000000000000",
-    content = request.args.get("content") or "Make it a Quote",
-    icon = request.args.get("icon") or "https://cdn.discordapp.com/embed/avatars/0.png"
-
+def miq(
+    name="SAMPLE",
+    id="0000000000000000000",
+    content="Make it a Quote",
+    icon="https://cdn.discordapp.com/embed/avatars/0.png",
+    brand="",
+    type=None,
+):
     if type == "color":
-        return send_file(
-            colorMake(name, id[0], content, icon),
-            mimetype="image/png"
-        )
+        return colorMake(name, id[0], content, icon, brand)
     elif type == "reverse":
-        return send_file(
-            reverseMake(name, id[0], content, icon),
-            mimetype="image/png"
-        )
+        return reverseMake(name, id[0], content, icon, brand)
     elif type == "reverseColor":
-        return send_file(
-            reverseColorMake(name, id[0], content, icon),
-            mimetype="image/png"
-        )
+        return reverseColorMake(name, id[0], content, icon, brand)
     elif type == "white":
-        return send_file(
-            whiteMake(name, id[0], content, icon),
-            mimetype="image/png"
-        )
+        return whiteMake(name, id[0], content, icon, brand)
     elif type == "reverseWhite":
-        return send_file(
-            reverseWhiteMake(name, id[0], content, icon),
-            mimetype="image/png"
-        )
+        return reverseWhiteMake(name, id[0], content, icon, brand)
     else:
-        return send_file(
-            make(name, id[0], content, icon),
-            mimetype="image/png"
-        )
+        return (make(name, id[0], content, icon),)
+
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=3000)
+    miq()
