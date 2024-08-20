@@ -23,7 +23,7 @@ def drawText(
     im,
     ofs,
     string,
-    font="miq/fonts/MPLUSRounded1c-Regular.ttf",
+    font=os.path.join(FONTS_DIR, 'MPLUSRounded1c-Regular.ttf'),
     size=16,
     color=(0, 0, 0, 255),
     split_len=None,
