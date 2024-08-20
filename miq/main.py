@@ -4,18 +4,20 @@ import requests
 import warnings
 import io
 from miq.wrap import fw_wrap
+import os
 
 warnings.simplefilter("ignore")
 
-BASE_GD_IMAGE = Image.open("miq/images/base-gd.png")
-BASE_RV_IMAGE = Image.open("miq/images/base-gd-rv.png")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+IMAGES_DIR = os.path.join(BASE_DIR, 'images')
+FONTS_DIR = os.path.join(BASE_DIR, 'fonts')
 
-BASE_GD_W_IMAGE = Image.open("miq/images/base-gd-w.png")
-BASE_RV_W_IMAGE = Image.open("miq/images/base-gd-w-rv.png")
-
-BASE_IMAGE = Image.open("miq/images/base.png")
-MPLUS_FONT = ImageFont.truetype("miq/fonts/MPLUSRounded1c-Regular.ttf", size=16)
-
+BASE_GD_IMAGE = Image.open(os.path.join(IMAGES_DIR, 'base-gd.png'))
+BASE_RV_IMAGE = Image.open(os.path.join(IMAGES_DIR, 'base-gd-rv.png'))
+BASE_GD_W_IMAGE = Image.open(os.path.join(IMAGES_DIR, 'base-gd-w.png'))
+BASE_RV_W_IMAGE = Image.open(os.path.join(IMAGES_DIR, 'base-gd-w-rv.png'))
+BASE_IMAGE = Image.open(os.path.join(IMAGES_DIR, 'base.png'))
+MPLUS_FONT = ImageFont.truetype(os.path.join(FONTS_DIR, 'MPLUSRounded1c-Regular.ttf'), size=16)
 
 def drawText(
     im,
