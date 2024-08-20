@@ -3,25 +3,25 @@ from pilmoji import Pilmoji
 import requests
 import warnings
 import io
-from wrap import fw_wrap
+from miq.wrap import fw_wrap
 
 warnings.simplefilter("ignore")
 
-BASE_GD_IMAGE = Image.open("images/base-gd.png")
-BASE_RV_IMAGE = Image.open("images/base-gd-rv.png")
+BASE_GD_IMAGE = Image.open("miq/images/base-gd.png")
+BASE_RV_IMAGE = Image.open("miq/images/base-gd-rv.png")
 
-BASE_GD_W_IMAGE = Image.open("images/base-gd-w.png")
-BASE_RV_W_IMAGE = Image.open("images/base-gd-w-rv.png")
+BASE_GD_W_IMAGE = Image.open("miq/images/base-gd-w.png")
+BASE_RV_W_IMAGE = Image.open("miq/images/base-gd-w-rv.png")
 
-BASE_IMAGE = Image.open("images/base.png")
-MPLUS_FONT = ImageFont.truetype("fonts/MPLUSRounded1c-Regular.ttf", size=16)
+BASE_IMAGE = Image.open("miq/images/base.png")
+MPLUS_FONT = ImageFont.truetype("miq/fonts/MPLUSRounded1c-Regular.ttf", size=16)
 
 
 def drawText(
     im,
     ofs,
     string,
-    font="fonts/MPLUSRounded1c-Regular.ttf",
+    font="miq/fonts/MPLUSRounded1c-Regular.ttf",
     size=16,
     color=(0, 0, 0, 255),
     split_len=None,
