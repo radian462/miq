@@ -17,5 +17,3 @@
     - `white` 色反転
     - `reverseWhite` 色反転・アイコンの位置反転    
 - file_name(str): ファイル名
-
-# ク
